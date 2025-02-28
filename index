@@ -3,90 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropbox Integration</title>
-    <!-- Dropbox API script -->
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="s9v308v1btilf47"></script>
+    <title>Dropbox Folder Embed</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #0061fe;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 10px;
+        .dropbox-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
-        #dropbox-container {
-            margin-top: 20px;
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <h1>Dropbox Integration</h1>
-    
-    <div id="dropbox-container">
-        <!-- The Dropbox chooser button will be inserted here -->
+    <div class="dropbox-container">
+        <iframe src="https://www.dropbox.com/scl/fo/i38uhf5sqkd20p8zg0gdw/ALeIX5GpU4Q6FWCk13XhYzg?rlkey=7bbglau2uc0qj1oix06jm2ckr&dl=0&embed=1"></iframe>
     </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create a Dropbox Chooser button
-            var options = {
-                success: function(files) {
-                    // Handle the selected files
-                    var msg = "Selected files: ";
-                    for (var i = 0; i < files.length; i++) {
-                        msg += files[i].name + " ";
-                    }
-                    alert(msg);
-                    
-                    // Display file links
-                    var linkList = document.createElement('div');
-                    files.forEach(function(file) {
-                        var link = document.createElement('a');
-                        link.href = file.link;
-                        link.textContent = file.name;
-                        link.target = '_blank';
-                        
-                        var container = document.createElement('div');
-                        container.style.margin = '10px 0';
-                        container.appendChild(link);
-                        linkList.appendChild(container);
-                    });
-                    
-                    var resultsDiv = document.getElementById('results');
-                    if (!resultsDiv) {
-                        resultsDiv = document.createElement('div');
-                        resultsDiv.id = 'results';
-                        document.body.appendChild(resultsDiv);
-                    } else {
-                        resultsDiv.innerHTML = '';
-                    }
-                    
-                    var heading = document.createElement('h2');
-                    heading.textContent = 'Selected Files:';
-                    resultsDiv.appendChild(heading);
-                    resultsDiv.appendChild(linkList);
-                },
-                cancel: function() {
-                    // User canceled the selection
-                },
-                linkType: "direct", // direct links to files
-                multiselect: true, // Allow selecting multiple files
-                extensions: ['.pdf', '.doc', '.docx', '.jpg', '.png'], // Optional file extensions filter
-            };
-            
-            // Insert the Dropbox chooser button
-            var button = Dropbox.createChooseButton(options);
-            document.getElementById('dropbox-container').appendChild(button);
-        });
-    </script>
 </body>
 </html>
